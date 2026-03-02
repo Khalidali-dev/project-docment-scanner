@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> {
     try {
       final result = await _scanner.scanDocument();
 
+      // ignore: unnecessary_null_comparison
       if (result != null &&
           result.images != null &&
           result.images!.isNotEmpty) {
