@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'document_screen.dart';
 import 'package:google_mlkit_document_scanner/google_mlkit_document_scanner.dart';
+
+import 'document_screen.dart';
 import 'preview_screen.dart';
 
 void main() {
@@ -8,6 +9,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,6 +22,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
