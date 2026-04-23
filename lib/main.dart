@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_document_scanner/google_mlkit_document_scanner.dart';
-
 import 'document_screen.dart';
 import 'preview_screen.dart';
 
