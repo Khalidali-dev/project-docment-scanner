@@ -1,0 +1,439 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:6994002034456230376",
+      "lastPropertyId": "20:3449543017502837907",
+      "name": "Book",
+      "properties": [
+        {
+          "id": "1:6358533305905572571",
+          "name": "id",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:6334888184427432029",
+          "name": "bookId",
+          "indexId": "1:1738416300974585639",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:8401359158674599255",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "4:9002311712711712314",
+          "name": "author",
+          "type": 9
+        },
+        {
+          "id": "5:5597918087425287131",
+          "name": "isbn",
+          "type": 9
+        },
+        {
+          "id": "6:3726609697902381061",
+          "name": "subject",
+          "indexId": "2:5626503123904025882",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "7:4819681371730635566",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "8:3117104974410190460",
+          "name": "publisher",
+          "type": 9
+        },
+        {
+          "id": "9:4676519821093452720",
+          "name": "publicationDate",
+          "type": 9
+        },
+        {
+          "id": "10:4426460074096809958",
+          "name": "coverImagePath",
+          "type": 9
+        },
+        {
+          "id": "11:294067890071921152",
+          "name": "barcodePath",
+          "type": 9
+        },
+        {
+          "id": "12:6868773947914448835",
+          "name": "tags",
+          "type": 30
+        },
+        {
+          "id": "13:8098346238688942963",
+          "name": "addedAt",
+          "indexId": "3:4801596553768706954",
+          "type": 10,
+          "flags": 8
+        },
+        {
+          "id": "14:126331811735849783",
+          "name": "lastAccessedAt",
+          "type": 10
+        },
+        {
+          "id": "15:7878812663188366998",
+          "name": "accessCount",
+          "type": 6
+        },
+        {
+          "id": "16:6181021814830812780",
+          "name": "totalPages",
+          "type": 6
+        },
+        {
+          "id": "17:4463807516500383831",
+          "name": "currentPage",
+          "type": 6
+        },
+        {
+          "id": "18:2923232890553988791",
+          "name": "readingStatus",
+          "type": 9
+        },
+        {
+          "id": "19:519445137076295214",
+          "name": "isFavorite",
+          "type": 1
+        },
+        {
+          "id": "20:3449543017502837907",
+          "name": "isArchived",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:6830643742148006931",
+      "lastPropertyId": "18:4127495236764716573",
+      "name": "Document",
+      "properties": [
+        {
+          "id": "1:1327159035481194819",
+          "name": "id",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:7486049056631788249",
+          "name": "documentId",
+          "indexId": "4:7913358069886998568",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:4974086187552735432",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "4:309888574481448892",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "5:277921904492758131",
+          "name": "subject",
+          "indexId": "5:7676416924442476251",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "6:8150350205707384519",
+          "name": "filePath",
+          "type": 9
+        },
+        {
+          "id": "7:2073329602236626695",
+          "name": "fileName",
+          "type": 9
+        },
+        {
+          "id": "8:547112240404991731",
+          "name": "tags",
+          "type": 30
+        },
+        {
+          "id": "9:5719943185038257514",
+          "name": "extractedText",
+          "type": 30
+        },
+        {
+          "id": "10:5176893058802835675",
+          "name": "createdAt",
+          "indexId": "6:4628381356371867419",
+          "type": 10,
+          "flags": 8
+        },
+        {
+          "id": "11:195305575335923101",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "12:541841056371637173",
+          "name": "lastAccessedAt",
+          "type": 10
+        },
+        {
+          "id": "13:2199752316648415011",
+          "name": "accessCount",
+          "type": 6
+        },
+        {
+          "id": "14:7067986916683978631",
+          "name": "documentType",
+          "type": 9
+        },
+        {
+          "id": "15:3631227242868007345",
+          "name": "thumbnailPath",
+          "type": 9
+        },
+        {
+          "id": "16:7281203469691188024",
+          "name": "fileSize",
+          "type": 6
+        },
+        {
+          "id": "17:5440442158710142347",
+          "name": "isFavorite",
+          "type": 1
+        },
+        {
+          "id": "18:4127495236764716573",
+          "name": "isArchived",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:7853324664982390250",
+      "lastPropertyId": "16:2470213486495683442",
+      "name": "Note",
+      "properties": [
+        {
+          "id": "1:3838415241898978035",
+          "name": "id",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:8503320551079649442",
+          "name": "noteId",
+          "indexId": "7:95828124811368577",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:739393343135047027",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "4:5085329292598530481",
+          "name": "content",
+          "type": 9
+        },
+        {
+          "id": "5:3915355437660305681",
+          "name": "subject",
+          "indexId": "8:2830797378911868160",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "6:7898532595941311014",
+          "name": "tags",
+          "type": 30
+        },
+        {
+          "id": "7:348030190478348154",
+          "name": "createdAt",
+          "indexId": "9:3787578784003422809",
+          "type": 10,
+          "flags": 8
+        },
+        {
+          "id": "8:8065811803165159310",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "9:4546892666695736195",
+          "name": "lastAccessedAt",
+          "type": 10
+        },
+        {
+          "id": "10:3009961911558613341",
+          "name": "accessCount",
+          "type": 6
+        },
+        {
+          "id": "11:2590646729946836434",
+          "name": "noteType",
+          "type": 9
+        },
+        {
+          "id": "12:9173889900661455113",
+          "name": "handwritingImagePath",
+          "type": 9
+        },
+        {
+          "id": "13:476838196061503057",
+          "name": "thumbnailPath",
+          "type": 9
+        },
+        {
+          "id": "14:2017547981530483676",
+          "name": "isFavorite",
+          "type": 1
+        },
+        {
+          "id": "15:4805171122836278837",
+          "name": "isArchived",
+          "type": 1
+        },
+        {
+          "id": "16:2470213486495683442",
+          "name": "digitizedInkData",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:5627288773554431285",
+      "lastPropertyId": "5:1142290112893444437",
+      "name": "SearchHistory",
+      "properties": [
+        {
+          "id": "1:5958371714867046544",
+          "name": "id",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:6393109170877286239",
+          "name": "query",
+          "indexId": "10:822224689659938281",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:2461440115101968081",
+          "name": "searchedAt",
+          "indexId": "11:5691393056049979796",
+          "type": 10,
+          "flags": 8
+        },
+        {
+          "id": "4:2182654155113183545",
+          "name": "resultCount",
+          "type": 6
+        },
+        {
+          "id": "5:1142290112893444437",
+          "name": "resultType",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:6431252661591171238",
+      "lastPropertyId": "11:1042536813054092931",
+      "name": "Subject",
+      "properties": [
+        {
+          "id": "1:7818695375213999502",
+          "name": "id",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:4666278735561693194",
+          "name": "subjectId",
+          "indexId": "12:5222565635319001646",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:1970420996589471831",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:8555255287254379452",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "5:8492901150699696019",
+          "name": "iconPath",
+          "type": 9
+        },
+        {
+          "id": "6:2702272086403602922",
+          "name": "color",
+          "type": 9
+        },
+        {
+          "id": "7:337000964043306848",
+          "name": "createdAt",
+          "indexId": "13:8256140465995371502",
+          "type": 10,
+          "flags": 8
+        },
+        {
+          "id": "8:8277269141035751357",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "9:6722446360112567998",
+          "name": "documentCount",
+          "type": 6
+        },
+        {
+          "id": "10:4674267128060601087",
+          "name": "noteCount",
+          "type": 6
+        },
+        {
+          "id": "11:1042536813054092931",
+          "name": "bookCount",
+          "type": 6
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "5:6431252661591171238",
+  "lastIndexId": "13:8256140465995371502",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
