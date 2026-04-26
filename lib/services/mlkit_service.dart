@@ -77,10 +77,10 @@ class MLKitService {
   }
 
   // Digital Ink Recognition
-  Future<List<Object>> recognizeHandwriting(Stroke stroke) async {
+  Future<List<RecognitionCandidate>> recognizeHandwriting(Ink ink) async {
     try {
       final List<RecognitionCandidate> candidates = await _inkRecognizer
-          .recognize(stroke as Ink);
+          .recognize(ink);
       return candidates;
     } catch (e) {
       print('Error recognizing handwriting: $e');
@@ -88,11 +88,11 @@ class MLKitService {
     }
   }
 
-  Future<List<Object>> recognizeHandwritingFromMultipleStrokes(
+  Future<List<RecognitionCandidate>> recognizeHandwritingFromMultipleStrokes(
     List<Stroke> strokes,
   ) async {
     try {
-      final Ink ink = Ink();
+      final Ink ink = Ink()..strokes = strokes;
       final List<RecognitionCandidate> candidates = await _inkRecognizer
           .recognize(ink);
       return candidates;

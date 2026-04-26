@@ -390,11 +390,12 @@ class _CaptureScreenState extends State<CaptureScreen> {
     setState(() => _isProcessing = true);
     try {
       // Get the first scanned image
-      if (result.images!.isEmpty) {
+      final images = result.images ?? <String>[];
+      if (images.isEmpty) {
         throw Exception('No images found in scan result');
       }
 
-      final imagePath = result.images!.first;
+      final imagePath = images.first;
 
       // Extract text
       final text = await _mlKitService.recognizeTextFromFile(imagePath);
