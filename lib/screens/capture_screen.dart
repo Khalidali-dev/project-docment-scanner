@@ -12,7 +12,9 @@ import '../utils/index.dart';
 import '../widgets/index.dart';
 
 class CaptureScreen extends StatefulWidget {
-  const CaptureScreen({super.key});
+  final String? initialMode;
+
+  const CaptureScreen({super.key, this.initialMode});
 
   @override
   State<CaptureScreen> createState() => _CaptureScreenState();
@@ -32,6 +34,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
   @override
   void initState() {
     super.initState();
+    _selectedMode = widget.initialMode;
     _initializeCameras();
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/index.dart';
 import '../services/index.dart';
 import '../utils/index.dart';
@@ -111,13 +112,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Scan Document',
                     Icons.document_scanner,
                     AppColors.primary,
-                    () => Navigator.pushNamed(context, '/capture'),
+                    () => Navigator.pushNamed(context, '/capture_document'),
                   ),
                   _buildActionButton(
                     'Take Photo',
                     Icons.camera_alt,
                     AppColors.secondary,
-                    () => Navigator.pushNamed(context, '/capture'),
+                    () => Navigator.pushNamed(context, '/capture_photo'),
                   ),
                   _buildActionButton(
                     'Add Note',

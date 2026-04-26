@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'document_screen.dart';
+import 'models/index.dart';
+import 'screens/book_detail_screen.dart';
+import 'screens/document_detail_screen.dart';
 import 'screens/index.dart';
+import 'screens/note_detail_screen.dart';
 import 'services/index.dart';
 import 'utils/index.dart';
 
@@ -35,8 +39,34 @@ class MyApp extends StatelessWidget {
         '/home': (_) => const HomeScreen(),
         '/library': (_) => const LibraryScreen(),
         '/capture': (_) => const CaptureScreen(),
+        '/capture_document': (_) =>
+            const CaptureScreen(initialMode: 'document'),
+        '/capture_photo': (_) => const CaptureScreen(initialMode: 'photo'),
+        '/note_editor': (_) => const CaptureScreen(initialMode: 'note'),
+        '/barcode': (_) => const CaptureScreen(initialMode: 'barcode'),
         '/search': (_) => const SearchScreen(),
         '/settings': (_) => const SettingsScreen(),
+        '/document_detail': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Document;
+          return DocumentDetailScreen(document: args);
+        },
+        '/note_detail': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Note;
+          return NoteDetailScreen(note: args);
+        },
+        '/book_detail': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Book;
+          return BookDetailScreen(book: args);
+        },
+        '/book_editor': (context) {
+          final args =
+              ModalRoute.of(context)!.settings.arguments
+                  as Map<String, dynamic>;
+          return BookEditorScreen(
+            isbn: args['isbn'] as String,
+            coverImagePath: args['coverImagePath'] as String?,
+          );
+        },
       },
     );
   }
