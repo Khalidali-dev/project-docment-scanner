@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/index.dart';
 import '../services/index.dart';
 import '../utils/index.dart';
@@ -257,7 +258,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           crossAxisCount: 2,
           mainAxisSpacing: AppDimensions.paddingM,
           crossAxisSpacing: AppDimensions.paddingM,
-          childAspectRatio: 0.7,
+          childAspectRatio: 0.52,
         ),
         itemCount: books.length,
         itemBuilder: (context, index) {

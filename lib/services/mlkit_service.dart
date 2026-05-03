@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
-import 'package:google_mlkit_digital_ink_recognition/google_mlkit_digital_ink_recognition.dart';
+import 'package:google_mlkit_digital_ink_recognition/google_mlkit_digital_ink_recognition.dart'
+    as mlkit;
 import 'package:google_mlkit_document_scanner/google_mlkit_document_scanner.dart';
 import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
@@ -9,7 +10,9 @@ import 'package:image/image.dart' as img;
 
 class MLKitService {
   final _textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
-  final _inkRecognizer = DigitalInkRecognizer(languageCode: '');
+  final mlkit.DigitalInkRecognizer _inkRecognizer = mlkit.DigitalInkRecognizer(
+    languageCode: 'en',
+  );
   late final BarcodeScanner _barcodeScanner;
   late final ImageLabeler _imageLabeler;
   late final DocumentScanner _documentScanner;
@@ -26,7 +29,21 @@ class MLKitService {
 
   Future<void> _initializeServices() async {
     try {
-      _barcodeScanner = BarcodeScanner();
+      _barcodeScanner = BarcodeScanner(
+        formats: [
+          BarcodeFormat.ean13,
+          BarcodeFormat.upca,
+          BarcodeFormat.upce,
+          BarcodeFormat.code128,
+          BarcodeFormat.code39,
+          BarcodeFormat.code93,
+          BarcodeFormat.itf,
+          BarcodeFormat.codabar,
+          BarcodeFormat.qrCode,
+          BarcodeFormat.pdf417,
+          BarcodeFormat.aztec,
+        ],
+      );
       _imageLabeler = ImageLabeler(options: ImageLabelerOptions());
       _documentScanner = DocumentScanner(
         options: DocumentScannerOptions(
@@ -77,9 +94,11 @@ class MLKitService {
   }
 
   // Digital Ink Recognition
-  Future<List<RecognitionCandidate>> recognizeHandwriting(Ink ink) async {
+  Future<List<mlkit.RecognitionCandidate>> recognizeHandwriting(
+    mlkit.Ink ink,
+  ) async {
     try {
-      final List<RecognitionCandidate> candidates = await _inkRecognizer
+      final List<mlkit.RecognitionCandidate> candidates = await _inkRecognizer
           .recognize(ink);
       return candidates;
     } catch (e) {
@@ -88,12 +107,11 @@ class MLKitService {
     }
   }
 
-  Future<List<RecognitionCandidate>> recognizeHandwritingFromMultipleStrokes(
-    List<Stroke> strokes,
-  ) async {
+  Future<List<mlkit.RecognitionCandidate>>
+  recognizeHandwritingFromMultipleStrokes(List<mlkit.Stroke> strokes) async {
     try {
-      final Ink ink = Ink()..strokes = strokes;
-      final List<RecognitionCandidate> candidates = await _inkRecognizer
+      final mlkit.Ink ink = mlkit.Ink()..strokes = strokes;
+      final List<mlkit.RecognitionCandidate> candidates = await _inkRecognizer
           .recognize(ink);
       return candidates;
     } catch (e) {
@@ -188,8 +206,16 @@ class MLKitService {
       final barcodes = await scanBarcode(imagePath);
 
       for (Barcode barcode in barcodes) {
-        if (barcode.type == BarcodeType.isbn) {
-          return barcode.displayValue;
+        final String value = _firstNonEmpty(
+          barcode.rawValue?.trim(),
+          barcode.displayValue?.trim(),
+        );
+
+        if (value.isEmpty) continue;
+
+        final String isbn = _extractIsbnFromString(value);
+        if (isbn.isNotEmpty) {
+          return isbn;
         }
       }
 
@@ -198,6 +224,34 @@ class MLKitService {
       print('Error extracting ISBN: $e');
       return null;
     }
+  }
+
+  String _firstNonEmpty(String? first, String? second) {
+    if (first != null && first.isNotEmpty) return first;
+    if (second != null && second.isNotEmpty) return second;
+    return '';
+  }
+
+  String _extractIsbnFromString(String value) {
+    final String cleaned = value.replaceAll(RegExp(r'[^0-9Xx]'), '');
+
+    if (cleaned.length == 13 || cleaned.length == 10) {
+      return cleaned;
+    }
+
+    final RegExp pattern = RegExp(r'([0-9]{13}|[0-9]{9}[0-9Xx])');
+    final RegExpMatch? match = pattern.firstMatch(value);
+    if (match != null) {
+      return match.group(0)!.replaceAll(RegExp(r'[^0-9Xx]'), '');
+    }
+
+    final RegExp digitsOnly = RegExp(r'[0-9]{12,13}');
+    final RegExpMatch? digitsMatch = digitsOnly.firstMatch(cleaned);
+    if (digitsMatch != null) {
+      return digitsMatch.group(0)!;
+    }
+
+    return '';
   }
 
   // Image Processing

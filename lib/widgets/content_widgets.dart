@@ -357,6 +357,7 @@ class BookCard extends StatelessWidget {
               padding: const EdgeInsets.all(AppDimensions.paddingM),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: AppDimensions.paddingXXS,
                 children: [
                   Text(
                     book.title,
@@ -368,7 +369,6 @@ class BookCard extends StatelessWidget {
                       color: AppColors.text,
                     ),
                   ),
-                  const SizedBox(height: AppDimensions.paddingXS),
                   Text(
                     book.author,
                     maxLines: 1,
@@ -379,7 +379,6 @@ class BookCard extends StatelessWidget {
                     ),
                   ),
                   if (book.totalPages > 0) ...[
-                    const SizedBox(height: AppDimensions.paddingS),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(
                         AppDimensions.borderRadiusS,
@@ -393,7 +392,6 @@ class BookCard extends StatelessWidget {
                         minHeight: 4,
                       ),
                     ),
-                    const SizedBox(height: AppDimensions.paddingXS),
                     Text(
                       '${book.currentPage}/${book.totalPages}',
                       style: const TextStyle(
@@ -402,7 +400,6 @@ class BookCard extends StatelessWidget {
                       ),
                     ),
                   ],
-                  const SizedBox(height: AppDimensions.paddingM),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

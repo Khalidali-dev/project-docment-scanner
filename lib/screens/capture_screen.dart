@@ -219,44 +219,15 @@ class _CaptureScreenState extends State<CaptureScreen> {
   }
 
   Widget _buildNoteMode() {
-    if (_cameraController == null || !_cameraController!.value.isInitialized) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Capture Note'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => setState(() => _selectedMode = null),
-          ),
-        ),
-        body: const LoadingWidget(),
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Capture Handwritten Note'),
+        title: const Text('Draw Handwritten Note'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => setState(() => _selectedMode = null),
         ),
       ),
-      body: Stack(
-        children: [
-          CameraPreview(_cameraController!),
-          Positioned(
-            bottom: AppDimensions.paddingXL,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: FloatingActionButton(
-                onPressed: _isProcessing ? null : _captureHandwrittenNote,
-                backgroundColor: AppColors.primary,
-                child: const Icon(Icons.camera),
-              ),
-            ),
-          ),
-        ],
-      ),
+      body: DrawingCanvas(onTextRecognized: _onHandwritingRecognized),
     );
   }
 
@@ -363,15 +334,33 @@ class _CaptureScreenState extends State<CaptureScreen> {
     }
   }
 
-  Future<void> _captureHandwrittenNote() async {
+  Future<void> _onHandwritingRecognized(String text) async {
+    setState(() => _isProcessing = true);
     try {
-      final XFile photo = await _cameraController!.takePicture();
+      // Save note
+      final note = Note(
+        noteId: const Uuid().v4(),
+        title: 'Handwritten Note ${DateTime.now().day}',
+        content: text,
+        subject: 'General',
+        noteType: NoteTypes.handwritten,
+        handwritingImagePath: null,
+        thumbnailPath: null,
+        tags: [],
+      );
+      await _databaseService.addNote(note);
+
       if (mounted) {
-        await _processHandwrittenNote(photo.path);
+        SnackBarHelper.showSuccess(context, 'Note digitized successfully');
+        setState(() => _selectedMode = null);
       }
     } catch (e) {
       if (mounted) {
-        SnackBarHelper.showError(context, 'Error capturing note: $e');
+        SnackBarHelper.showError(context, 'Error processing note: $e');
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isProcessing = false);
       }
     }
   }
@@ -483,48 +472,6 @@ class _CaptureScreenState extends State<CaptureScreen> {
     } catch (e) {
       if (mounted) {
         SnackBarHelper.showError(context, 'Error processing photo: $e');
-      }
-    } finally {
-      if (mounted) {
-        setState(() => _isProcessing = false);
-      }
-    }
-  }
-
-  Future<void> _processHandwrittenNote(String imagePath) async {
-    setState(() => _isProcessing = true);
-    try {
-      // Extract text from handwriting
-      final text = await _mlKitService.recognizeTextFromFile(imagePath);
-
-      // Get categories
-      final categories = await _mlKitService.categorizeDocument(imagePath);
-      final subject = categories.isNotEmpty ? categories.first : 'General';
-
-      // Create thumbnail
-      final thumbnail = await _mlKitService.createThumbnail(imagePath);
-
-      // Save note
-      final note = Note(
-        noteId: const Uuid().v4(),
-        title: 'Handwritten Note ${DateTime.now().day}',
-        content: text,
-        subject: subject,
-        noteType: NoteTypes.handwritten,
-        handwritingImagePath: imagePath,
-        thumbnailPath: thumbnail,
-        tags: categories,
-      );
-
-      await _databaseService.addNote(note);
-
-      if (mounted) {
-        SnackBarHelper.showSuccess(context, 'Note digitized successfully');
-        setState(() => _selectedMode = null);
-      }
-    } catch (e) {
-      if (mounted) {
-        SnackBarHelper.showError(context, 'Error processing note: $e');
       }
     } finally {
       if (mounted) {
